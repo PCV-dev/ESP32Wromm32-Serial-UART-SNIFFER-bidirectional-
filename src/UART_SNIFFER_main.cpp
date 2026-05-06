@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-#include <Arduino.h>
 
 #define PC_BAUD      115200
 #define TARGET_BAUD  19200
@@ -8,19 +7,31 @@
 #define FRAME_GAP_US 3000
 #define BUF_SIZE     256
 
+// UART0 lassen wir in Ruhe ... für PC interface... immer! Es sei denn wir brauchen das interface nicht dann können wir es nach dem Start des ESP nutzen (wie auch immer)
+
+
 
 // Richtung 1: Dashboard -> ESC
-#define RX_DASH_TX   3 //  GPIO3 (RX0) Lauschen in Richtung ESC
-#define TX_UNUSED_1  1 //  GPIO1 (TX0) Unused, da wir sniffen und nicht senden wollen
+
+#define RDX1_RX 32 
+//  GPIO09 (UART1) müssen umgebogen werden weil Pin gleich mit SPI,  Lauschen in Richtung ESC
+
+#define RDX1_DX 33 
+//  GPIO10 (UART1) müssen umgebogen werden weil Pin gleich mit SPI, Unused, da wir sniffen und nicht senden wollen
 
 // Richtung 2: ESC -> Dashboard
-#define RX_ESC_TX    16 // GPIO16 (RX2) Lauschen in Richtung Dashboard
-#define TX_UNUSED_2  17 // GPIO17 (TX2) Unused, da wir sniffen und nicht senden wollen
+
+#define RDX2_RX 16 
+// GPIO16 (UART2) Lauschen 
+
+in Richtung Dashboard
+
+#define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen
 
 
 
-HardwareSerial UartDash(1);
-HardwareSerial UartEsc(2);
+HardwareSerial UartDash-ESC (1);
+HardwareSerial UartEsc-Dash (2);
 
 struct SniffBuffer {
   const char *name;
@@ -31,7 +42,7 @@ struct SniffBuffer {
   uint32_t lastByte;
 };
 
-SniffBuffer dashToEsc = {
+SniffBuffer DashToEsc = {
   "DASH->ESC",
   &UartDash,
   {0},
@@ -40,7 +51,7 @@ SniffBuffer dashToEsc = {
   0
 };
 
-SniffBuffer escToDash = {
+SniffBuffer EscToDash = {
   "ESC->DASH",
   &UartEsc,
   {0},
@@ -106,11 +117,11 @@ void setup() {
   Serial.begin(PC_BAUD);
   delay(500);
 
-  UartDash.setRxBufferSize(1024);
-  UartEsc.setRxBufferSize(1024);
+  UartDash-Esc.setRxBufferSize(1024);
+  UartEsc-Dash.setRxBufferSize(1024);
 
-  UartDash.begin(TARGET_BAUD, SERIAL_8N1, RX_DASH_TX, TX_UNUSED_1);
-  UartEsc.begin(TARGET_BAUD, SERIAL_8N1, RX_ESC_TX, TX_UNUSED_2);
+  UartDash-Esc.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, RDX1_DX);
+  UartEsc-Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, RDX2_DX);
 
   Serial.println();
   Serial.println("ESP32 dual UART sniffer started");
@@ -124,6 +135,6 @@ void setup() {
 }
 
 void loop() {
-  readSniff(dashToEsc);
-  readSniff(escToDash);
+  readSniff(DashToEsc);
+  readSniff(EscToDash);
 }
