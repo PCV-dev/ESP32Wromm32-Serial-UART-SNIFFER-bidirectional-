@@ -35,7 +35,7 @@ struct SniffBuffer {
   uint32_t lastByte;
 };
 
-SniffBuffer UartDash_Dash_Buff = {
+SniffBuffer UartDash_ESC_Buff = {
   "DASH->ESC",
   &UartDash_ESC,
   {0},
@@ -44,7 +44,7 @@ SniffBuffer UartDash_Dash_Buff = {
   0
 };
 
-SniffBuffer UartDash_ESC_Buff = {
+SniffBuffer UartESC_Dash_Buff = {
   "ESC->DASH",
   &UartESC_Dash,
   {0},
@@ -111,7 +111,7 @@ void setup() {
   delay(500);
 
   UartDash_ESC.setRxBufferSize(1024);
-  UartEsc_Dash.setRxBufferSize(1024);
+  UartESC_Dash.setRxBufferSize(1024);
 
   UartDash_ESC.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, -1 ); // -1 setzt TX auf inaktiv
   UartESC_Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, -1 ); // -1 setzt TX auf inaktiv
