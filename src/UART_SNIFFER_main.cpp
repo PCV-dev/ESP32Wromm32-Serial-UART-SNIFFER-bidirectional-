@@ -10,14 +10,11 @@
 // UART0 lassen wir in Ruhe ... für PC interface... immer! Es sei denn wir brauchen das interface nicht dann können wir es nach dem Start des ESP nutzen (wie auch immer)
 
 
-
 // Richtung 1: Dashboard -> ESC
+#define RDX1_RX 32 //  GPIO09 (UART1) müssen umgebogen werden weil Pin gleich mit SPI,  Lauschen in Richtung ESC
 
-#define RDX1_RX 32 
-//  GPIO09 (UART1) müssen umgebogen werden weil Pin gleich mit SPI,  Lauschen in Richtung ESC
-
-#define RDX1_DX 33 
-//  GPIO10 (UART1) müssen umgebogen werden weil Pin gleich mit SPI, Unused, da wir sniffen und nicht senden wollen
+// Richtung 2: ESC -> Dashboard
+#define RDX1_DX 33 //  GPIO10 (UART1) müssen umgebogen werden weil Pin gleich mit SPI, Unused, da wir sniffen und nicht senden wollen
 
 // Richtung 2: ESC -> Dashboard
 
