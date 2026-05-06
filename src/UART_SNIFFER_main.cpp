@@ -113,8 +113,8 @@ void setup() {
   UartDash_ESC.setRxBufferSize(1024);
   UartEsc_Dash.setRxBufferSize(1024);
 
-  UartDash_Esc.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, -1 ); // -1 setzt TX auf inaktiv
-  UartEsc_Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, -1 ); // -1 setzt TX auf inaktiv
+  UartDash_ESC.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, -1 ); // -1 setzt TX auf inaktiv
+  UartESC_Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, -1 ); // -1 setzt TX auf inaktiv
 
   Serial.println();
   Serial.println("ESP32 dual UART sniffer started");
