@@ -22,16 +22,14 @@
 // Richtung 2: ESC -> Dashboard
 
 #define RDX2_RX 16 
-// GPIO16 (UART2) Lauschen 
-
-in Richtung Dashboard
+// GPIO16 (UART2) Lauschen in Richtung Dashboard
 
 #define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen
 
 
 
-HardwareSerial UartDash-ESC (1);
-HardwareSerial UartEsc-Dash (2);
+HardwareSerial UartDash_ESC (1);
+HardwareSerial UartEsc_Dash (2);
 
 struct SniffBuffer {
   const char *name;
@@ -42,18 +40,18 @@ struct SniffBuffer {
   uint32_t lastByte;
 };
 
-SniffBuffer UartDash-ESC = {
+SniffBuffer UartDash_ESC_Buff = {
   "DASH->ESC",
-  &UartDash-ESC,
+  &UartDash_ESC,
   {0},
   0,
   0,
   0
 };
 
-SniffBuffer UartEsc-Dash = {
+SniffBuffer UartEsc_Dash_Buff = {
   "ESC->DASH",
-  &UartEsc-Dash,
+  &UartEsc_Dash,
   {0},
   0,
   0,
@@ -117,11 +115,11 @@ void setup() {
   Serial.begin(PC_BAUD);
   delay(500);
 
-  UartDash-Esc.setRxBufferSize(1024);
-  UartEsc-Dash.setRxBufferSize(1024);
+  UartDash_ESC.setRxBufferSize(1024);
+  UartEsc_Dash.setRxBufferSize(1024);
 
-  UartDash-Esc.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, RDX1_DX);
-  UartEsc-Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, RDX2_DX);
+  UartDash_Esc.begin(TARGET_BAUD, SERIAL_8N1, RDX1_RX, RDX1_DX);
+  UartEsc_Dash.begin(TARGET_BAUD, SERIAL_8N1, RDX2_RX, RDX2_DX);
 
   Serial.println();
   Serial.println("ESP32 dual UART sniffer started");
