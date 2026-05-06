@@ -42,18 +42,18 @@ struct SniffBuffer {
   uint32_t lastByte;
 };
 
-SniffBuffer DashToEsc = {
+SniffBuffer UartDash-ESC = {
   "DASH->ESC",
-  &UartDash,
+  &UartDash-ESC,
   {0},
   0,
   0,
   0
 };
 
-SniffBuffer EscToDash = {
+SniffBuffer UartEsc-Dash = {
   "ESC->DASH",
-  &UartEsc,
+  &UartEsc-Dash,
   {0},
   0,
   0,
@@ -126,11 +126,11 @@ void setup() {
   Serial.println();
   Serial.println("ESP32 dual UART sniffer started");
   Serial.print("UART1 RX GPIO ");
-  Serial.print(RX_DASH_TX);
+  Serial.print(RDX1_RX);
   Serial.println(" = DASH->ESC");
 
   Serial.print("UART2 RX GPIO ");
-  Serial.print(RX_ESC_TX);
+  Serial.print(RDX2_RX);
   Serial.println(" = ESC->DASH");
 }
 
