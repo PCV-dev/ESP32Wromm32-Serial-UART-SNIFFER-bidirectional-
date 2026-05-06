@@ -16,8 +16,8 @@
 // Richtung 2: ESC -> Dashboard
 #define RDX1_DX 33 //  GPIO10 (UART1) müssen umgebogen werden weil Pin gleich mit SPI, Unused, da wir sniffen und nicht senden wollen
 
-// Richtung 2: ESC -> Dashboard
 
+// Richtung 2: ESC -> Dashboard
 #define RDX2_RX 16 // GPIO16 (UART2) Lauschen in Richtung Dashboard
 
 #define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen
