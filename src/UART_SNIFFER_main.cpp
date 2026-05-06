@@ -13,19 +13,18 @@
 // Richtung 1: Dashboard -> ESC
 #define RDX1_RX 32 //  GPIO09 (UART1) müssen umgebogen werden weil Pin gleich mit SPI,  Lauschen in Richtung ESC
 
-// Richtung 2: ESC -> Dashboard
-#define RDX1_DX 33 //  GPIO10 (UART1) müssen umgebogen werden weil Pin gleich mit SPI, Unused, da wir sniffen und nicht senden wollen
+#define RDX1_DX 33 //  GPIO10 (UART1) (Unused da wir sniffen) müssen umgebogen werden weil Pin gleich mit SPI. In dem speziellen Def. Überflüssig dient der Vollständigkeit.
 
 
 // Richtung 2: ESC -> Dashboard
 #define RDX2_RX 16 // GPIO16 (UART2) Lauschen in Richtung Dashboard
 
-#define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen
+#define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen. In dem speziellen Fall Def überflussig, dient der Vollständigkeit. 
 
 
 
 HardwareSerial UartDash_ESC (1);
-HardwareSerial UartEsc_Dash (2);
+HardwareSerial UartESC_Dash (2);
 
 struct SniffBuffer {
   const char *name;
@@ -36,7 +35,7 @@ struct SniffBuffer {
   uint32_t lastByte;
 };
 
-SniffBuffer UartDash_ESC_Buff = {
+SniffBuffer UartDash_Dash_Buff = {
   "DASH->ESC",
   &UartDash_ESC,
   {0},
@@ -45,9 +44,9 @@ SniffBuffer UartDash_ESC_Buff = {
   0
 };
 
-SniffBuffer UartEsc_Dash_Buff = {
+SniffBuffer UartDash_ESC_Buff = {
   "ESC->DASH",
-  &UartEsc_Dash,
+  &UartESC_Dash,
   {0},
   0,
   0,
@@ -129,6 +128,6 @@ void setup() {
 }
 
 void loop() {
-  readSniff(DashToEsc);
-  readSniff(EscToDash);
+  readSniff(UartDash_ESC_Buff);
+  readSniff(UartESC_Dash_Buff);
 }
