@@ -21,8 +21,7 @@
 
 // Richtung 2: ESC -> Dashboard
 
-#define RDX2_RX 16 
-// GPIO16 (UART2) Lauschen in Richtung Dashboard
+#define RDX2_RX 16 // GPIO16 (UART2) Lauschen in Richtung Dashboard
 
 #define RDX2_DX 17 // GPIO17 (UART2) Unused, da wir sniffen und nicht senden wollen
 
